@@ -1,0 +1,223 @@
+body {
+	font-size: 1.3rem;
+	font-family: arial,helvetica,san-serif
+}
+.heading {
+	background: rgb(0,0,50);
+	color: #fff;
+	padding: 8px;
+	font-family: helvetica;
+	margin: 5px 0;
+	display: flex;
+}
+.heading h2 {
+	padding: 0;
+	margin-left: 2%;
+	text-shadow: 1px 5px 1px #000;
+	width: 15%;
+}
+.heading .actions {
+	text-align: right;
+	flex-grow: 1;
+	margin-right: 30px;
+	margin: auto 20px;
+	width: 80%;
+}
+.heading .actions input {
+	padding: 15px;
+	width: 80%;
+	border: 1px solid #fff;
+	outline: none;
+}
+.heading .actions button {
+	padding: 15px;
+	margin: 0 0 0 -2px;
+	width: 15%;
+	border: 1px solid #fff;
+	background: rgb(0,0,50);
+	color: #fff;
+	cursor: pointer;
+	outline: none;
+}
+.heading .actions button:hover, i:hover {
+	background: #fff;
+	color: darkorange;
+}
+h5 {
+	margin: 20px 5%;
+	color: rgb(0,0,50);
+	box-shadow: 0px 1px 1px rgb(0,0,50);
+	padding: 5px 3%;
+	background: #f2f2f2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+h5 input {
+	width: 70%;
+	text-align: center;
+	padding: 5px;
+	font-size: 13px;
+	border: none;
+	outline: none;
+}
+h5 i.fa {
+	float: right;
+	margin: 0;
+}
+.list {
+	padding: 0 6%;
+	margin: 7px 5%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	box-shadow: 0px 1px 3px rgb(0,0,50);
+}
+.list::before {
+	content: "";
+	position: absolute;
+	top: -2.5px;
+	left: -3px;
+	width: 5px;
+	height: 20px;
+	background: rgb(0,0,50);
+}
+.list::after {
+	content: "";
+	position: absolute;
+	top: -3px;
+	left: -3px;
+	width: 20px;
+	height: 5px;
+	background: rgb(0,0,50);
+}
+.list h4 {
+	color: rgb(0,0,50);
+}
+span {
+	flex-grow: 1;
+	text-align: right;
+	font-size: 20px;
+}
+span::before {
+	content: "";
+	position: absolute;
+	top: -2.5px;
+	right: -3px;
+	width: 5px;
+	height: 20px;
+	background: rgb(0,0,50);
+}
+span::after {
+	content: "";
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 20px;
+	height: 5px;
+	background: rgb(0,0,50);
+}
+span i {
+	padding: 5px 10px;
+	margin: 3px 5px 0 20px;
+	color: rgb(0,0,50);
+	box-shadow: 1px 1px 0px rgb(0,0,50);
+	cursor: pointer;
+}
+#deleted {
+	margin-top: 100px;
+}
+.deleted .list::before {
+	background: red;
+}
+.deleted .list::after {
+	background: red;
+}
+.deleted span::before {
+	background: red;
+}
+.deleted span::after {
+	background: red;
+}
+.deleted span i {
+	color: red;
+	box-shadow: 1px 1px 0px red;
+}
+@media screen and (max-width: 900px) {
+   .heading h2 {
+	width: 20%;
+   }
+   .heading .actions {
+	width: 70%;
+	display: flex;
+   }
+   .heading .actions input {
+	width: 80%;
+   }
+   .heading .actions button {
+	width: 20%;
+   }
+	
+}
+@media screen and (max-width: 800px) {
+   .heading h2 {
+	width: 30%;
+   }
+   .heading .actions {
+	width: 70%;
+	display: flex;
+   }
+}
+	
+@media screen and (max-width: 700px) {
+    body {
+	margin: 0;
+    }
+   .heading {
+	flex-wrap: wrap;
+	padding: 10px;
+	margin: 0;
+   }
+   .heading h2 {
+	text-align: center;
+	width: 100%;
+	margin: 0;
+	padding: 10px;
+   }
+   .heading .actions {
+	text-align: center;
+	width: 100%;
+	margin: 0;
+	padding: 10px 2.5%;
+   }
+   .list h4 {
+	font-size: 16px;
+   }
+   span {
+	font-size: 15px;
+   }
+	
+}
+
+@media screen and (max-width: 400px) {
+   .heading .actions {
+	margin: 0;
+   }
+   .heading .actions input {
+	padding: 10px;
+	width: 70%;
+   }
+   .heading .actions button {
+	padding: 10px;
+	width: 30%;
+   }
+   .list h4 {
+	font-size: 16px;
+	width: 80%;
+   }
+   span {
+	font-size: 12px;
+	width: 10%;
+   }
+	
+}
