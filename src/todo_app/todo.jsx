@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import Heading from './todo_heading';
-import Element from './elements';
-import Deleted from './deleted';
+import ElementsList from './elementsList';
+import DeletedList from './deletedList';
 import './todo.css';
 
 class Todo extends Component {
 	state = {
 		elements: [],
 		deleted: [],
-		value: "",
-		toggleList: 'block',
-		toggleDeleted: 'block',
-		searchValue: ""
-	}
-
-	//get input values and set it to the value in state
-	handleChange = (e) => {
-		var textvalue = e.target.value;
-		this.setState({value: textvalue});
+		value: ""
 	}
 
 	
@@ -30,11 +21,13 @@ class Todo extends Component {
 		value !== "" && elements.unshift(list);
 
 		this.setState({elements});
+		localStorage.setItem("todolist", JSON.stringify(elements));
 	}
 
 	handleDelete = (element) => {
 		const elements = this.state.elements.filter(e => e.id !== element.id)
 		this.setState({elements});
+		localStorage.setItem("todolist", JSON.stringify(elements));
 
 		const deleted = [...this.state.deleted];
 		
@@ -43,74 +36,34 @@ class Todo extends Component {
 		element.text !== "" && deleted.unshift(list);
 		
 		this.setState({deleted});
+		localStorage.setItem("deletedList", JSON.stringify(deleted));
 	}
 
 	handleFinalDelete = element => {
 		const deleted = this.state.deleted.filter(e => e.id !== element.id);
 		this.setState({deleted});	
+		localStorage.setItem("deletedList", JSON.stringify(deleted));
 	}
+
 	
-	handleAddClass() {
-		let arrow = "fa fa-arrow-"
-		arrow += (this.state.toggleList === "none") ? "right" : "down";
-		return arrow;
-	}
-	
-	handleDeleteClass() {
-		let arrow = "fa fa-arrow-"
-		arrow += (this.state.toggleDeleted === "none") ? "right" : "down";
-		return arrow;
-	}
 
-	handleToggleList = () => {
-		const hide = (this.state.toggleList === "block") ? "none" : "block";
-		this.setState({toggleList: hide});
+	componentDidMount = () => {
+			const todo = JSON.parse(localStorage.getItem("todolist"));
+			if(todo !== null) {this.setState({elements: todo})};
+
+			const deletedList = JSON.parse(localStorage.getItem("deletedList"));
+			if(deletedList !== null) {this.setState({deleted: deletedList})};
 	}
-
-	handleToggleDeleted = () => {
-		const hide = (this.state.toggleDeleted === "block") ? "none" : "block";
-		this.setState({toggleDeleted: hide});
-		
-	}	
-
-	handleSearch = (e) => {
-		const searchValue = e.target.value.toUpperCase();
-		//let elements = this.state.elements.filter(element => (element.text.toUpperCase().indexOf(value) !== -1));
-		//this.setState({elements});
-		this.setState({searchValue})
-	}
-
 	render() {
 		return (
 			<React.Fragment>
-				<Heading onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+
+				<Heading onSubmit={this.handleSubmit} onChange={(e) => this.setState({value: e.target.value})}/>
 					
-				<h5>list <input onChange={this.handleSearch} className="search" placeholder="Search list..."/><i onClick={this.handleToggleList} className={this.handleAddClass()}></i></h5>
+				<ElementsList elements={this.state.elements} onDelete={this.handleDelete} />
 				
-				<div style={{display: this.state.toggleList}}>
-				{this.state.elements.map(element => 
-				<Element 
-					searchValue={this.state.searchValue}
-					key={element.id} 
-					text={element.text} 
-					id={element.id} 
-					onDelete={ () => this.handleDelete(element)} 
-				/>)}
-				</div>
+				<DeletedList deleted={this.state.deleted} onDelete={this.handleFinalDelete} />
 				
-				<div id="deleted">
-				<h5>Completed <i onClick={this.handleToggleDeleted} className={this.handleDeleteClass()}></i></h5>	
-				
-				<div style={{display: this.state.toggleDeleted}}>	
-					{this.state.deleted.map(element => 
-						<Deleted key={element.id} 
-							text={element.text} 
-							id={element.id} 
-							onDelete={ () => this.handleFinalDelete(element)} 
-						/>
-					)}
-				</div>
-				</div>
 			</React.Fragment>
 		);	
 	}

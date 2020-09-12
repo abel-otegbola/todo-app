@@ -1,9 +1,20 @@
 import React from 'react';
 
-function Deleted({text,onDelete}) {
+class Deleted extends React.Component {
+	
+
+	handleSearch = () => {
+		const {text, searchValue} = this.props;
+		const display = (text.toUpperCase().indexOf(searchValue) !== -1) ? "block" : "none";
+		return display;
+	}
+
+	render() {
+
+		const {text, onDelete} = this.props;
 
 		return (
-			<div className="container deleted">
+			<div className="container deleted" style={{display: this.handleSearch()}}>
 				<div className="list">
 					<h4 style={{color: "darkred", opacity: 0.9}}>{text}</h4>
 					<span>
@@ -12,7 +23,7 @@ function Deleted({text,onDelete}) {
 				</div>
 			</div>
 		);	
-	
+	}
 }
 
 export default Deleted;
